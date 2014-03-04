@@ -1,10 +1,10 @@
 using System.Runtime.InteropServices;
 using System.Reflection;
 
-[assembly: AssemblyTitle("Nancy")]
-[assembly: AssemblyDescription("A Sinatra inspired web framework for the .NET platform")]
+[assembly: AssemblyProduct("Nancy.Embedded")]
+[assembly: AssemblyTitle("Nancy.Embedded")]
 [assembly: AssemblyCompany("Nancy")]
-[assembly: AssemblyProduct("Nancy")]
+[assembly: AssemblyDescription("Allows a Nancy web app to use embedded resources for views or static content")]
 [assembly: AssemblyCopyright("Copyright (C) Andreas Hakansson, Steven Robbins and contributors")]
-[assembly: AssemblyVersion("0.22.2")]
-[assembly: AssemblyInformationalVersion("0.22.2")]
+[assembly: AssemblyVersion("0.0.1")]
+[assembly: AssemblyInformationalVersion("0.0.1")]
