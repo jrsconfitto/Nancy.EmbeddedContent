@@ -81,7 +81,7 @@
             result.ShouldEqual("Embedded Text");
         }
 
-        private static EmbeddedFileResponse GetEmbeddedStaticContentResponse(string virtualDirectory, string requestedFilename, string root = null, IDictionary<string, IEnumerable<string>> headers = null)
+        private static Response GetEmbeddedStaticContentResponse(string virtualDirectory, string requestedFilename, string root = null, IDictionary<string, IEnumerable<string>> headers = null)
         {
             var resource = string.Format("/{0}/{1}", virtualDirectory, requestedFilename);
 
@@ -91,7 +91,7 @@
 
             var resolver = EmbeddedStaticContentConventionBuilder.AddDirectory(virtualDirectory, assembly, "Resources");
 
-            return resolver.Invoke(context, null) as EmbeddedFileResponse;
+            return resolver.Invoke(context, null);
         }
 
         private static string GetEmbeddedStaticContent(string virtualDirectory, string requestedFilename, string root = null)
