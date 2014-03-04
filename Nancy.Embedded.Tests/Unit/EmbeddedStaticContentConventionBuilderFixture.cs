@@ -1,6 +1,7 @@
 ﻿namespace Nancy.Embedded.Tests.Unit
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -12,6 +13,17 @@
 
     public class EmbeddedStaticContentConventionBuilderFixture
     {
+        [Fact]
+        public void Return_not_modified_when_not_changed_and_conditional_request_on_etag_sent()
+        {
+            var result = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
+            var etag = result.Headers["ETag"];
+            var headers = new Dictionary<string, IEnumerable<string>> { { "If-None-Match", new[] { etag } } };
+
+            result = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt", headers: headers);
+
+            result.StatusCode.ShouldEqual(HttpStatusCode.NotModified);
+        }
 
         [Fact]
         public void Embedded_response_has_last_modified_header()
@@ -69,22 +81,15 @@
             result.ShouldEqual("Embedded Text");
         }
 
-        private static EmbeddedFileResponse GetEmbeddedStaticContentResponse(string virtualDirectory, string requestedFilename, string root = null)
+        private static EmbeddedFileResponse GetEmbeddedStaticContentResponse(string virtualDirectory, string requestedFilename, string root = null, IDictionary<string, IEnumerable<string>> headers = null)
         {
-            var resource =
-                string.Format("/{0}/{1}", virtualDirectory, requestedFilename);
+            var resource = string.Format("/{0}/{1}", virtualDirectory, requestedFilename);
 
-            var context =
-                new NancyContext
-                {
-                    Request = new Request("GET", resource, "http")
-                };
+            var context = GetContext(virtualDirectory, requestedFilename, headers);
 
-            var assembly =
-                Assembly.GetExecutingAssembly();
+            var assembly = Assembly.GetExecutingAssembly();
 
-            var resolver =
-                EmbeddedStaticContentConventionBuilder.AddDirectory(virtualDirectory, assembly, "Resources");
+            var resolver = EmbeddedStaticContentConventionBuilder.AddDirectory(virtualDirectory, assembly, "Resources");
 
             return resolver.Invoke(context, null) as EmbeddedFileResponse;
         }
@@ -103,6 +108,19 @@
             }
 
             return null;
+        }
+
+        private static NancyContext GetContext(string virtualDirectory, string requestedFilename, IDictionary<string, IEnumerable<string>> headers = null)
+        {
+            var resource = string.Format("/{0}/{1}", virtualDirectory, requestedFilename);
+
+            var request = new Request(
+                "GET",
+                new Url { Path = resource, Scheme = "http" },
+                headers: headers ?? new Dictionary<string, IEnumerable<string>>());
+
+            var context = new NancyContext { Request = request };
+            return context;
         }
     }
 }
