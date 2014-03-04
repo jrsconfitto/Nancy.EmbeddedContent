@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nancy.Embedded", "Nancy.Emb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nancy.Embedded.Tests", "Nancy.Embedded.Tests\Nancy.Embedded.Tests.csproj", "{6EED2486-39BF-491D-B033-720DFCFD1211}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{9E484DE7-8C8A-431C-8A68-B42F6AFC5818}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6EED2486-39BF-491D-B033-720DFCFD1211}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EED2486-39BF-491D-B033-720DFCFD1211}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EED2486-39BF-491D-B033-720DFCFD1211}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E484DE7-8C8A-431C-8A68-B42F6AFC5818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E484DE7-8C8A-431C-8A68-B42F6AFC5818}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E484DE7-8C8A-431C-8A68-B42F6AFC5818}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E484DE7-8C8A-431C-8A68-B42F6AFC5818}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
