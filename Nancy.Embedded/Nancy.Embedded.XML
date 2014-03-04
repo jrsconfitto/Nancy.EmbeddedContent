@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nancy.Embedded</name>
+    </assembly>
+    <members>
+        <member name="T:Nancy.Embedded.Conventions.StaticContentsConventionsExtensions">
+            <summary>
+            Extension methods to aid adding embedded static content into conventions
+            </summary>
+        </member>
+        <member name="M:Nancy.Embedded.Conventions.StaticContentsConventionsExtensions.AddEmbeddedDirectory(System.Collections.Generic.IList{System.Func{Nancy.NancyContext,System.String,Nancy.Response}},System.String,System.String,System.String[])">
+            <summary>
+            Adds a directory-based convention for embedded static resources
+            </summary>
+            <param name="conventions">Conventions in which static content will be added</param>
+            <param name="requestedPath">The path that should be matched with the request</param>
+            <param name="contentPath">The path to where the content is stored in your application, relative to the root. If this is <see langword="null" /> then it will be the same as <paramref name="requestedPath"/>.</param>
+            <param name="allowedExtensions">A list of extensions that is valid for the conventions. If not supplied, all extensions are valid.</param>
+        </member>
+        <member name="M:Nancy.Embedded.Conventions.StaticContentsConventionsExtensions.AddEmbeddedDirectory(System.Collections.Generic.IList{System.Func{Nancy.NancyContext,System.String,Nancy.Response}},System.String,System.Reflection.Assembly,System.String,System.String[])">
+            <summary>
+            Adds a directory-based convention for embedded static resources
+            </summary>
+            <param name="conventions">Conventions in which static content will be added</param>
+            <param name="requestedPath">The path that should be matched with the request</param>
+            <param name="assembly">The assembly that contains the embedded static content</param>
+            <param name="contentPath">The path to where the content is stored in your application, relative to the root. If this is <see langword="null" /> then it will be the same as <paramref name="requestedPath"/>.</param>
+            <param name="allowedExtensions">A list of extensions that is valid for the conventions. If not supplied, all extensions are valid.</param>
+        </member>
+        <member name="T:Nancy.Embedded.Conventions.EmbeddedStaticContentConventionBuilder">
+            <summary>
+            Allows the use of embedded resources for static content in Nancy
+            </summary>
+        </member>
+        <member name="M:Nancy.Embedded.Conventions.EmbeddedStaticContentConventionBuilder.AddDirectory(System.String,System.Reflection.Assembly,System.String,System.String[])">
+            <summary>
+            Adds a directory-based convention for embedded static convention
+            </summary>
+            <param name="requestedPath">The path that should be matched with the request</param>
+            <param name="assembly">The assembly that contains the embedded static content</param>
+            <param name="contentPath">The path to where the content is stored in your application, relative to the root. If this is <see langword="null"/> then it will be the same as <paramref name="requestedPath"/>.</param>
+            <param name="allowedExtensions">A list of extensions that is valid for the conventions. If not supplied, all extensions are valid.</param>
+            <returns>A <see cref="T:Nancy.Responses.EmbeddedFileResponse"/> instance for the requested embedded static contents if it was found, otherwise <see langword="null"/>.</returns>
+        </member>
+        <member name="M:Nancy.Embedded.Conventions.EmbeddedStaticContentConventionBuilder.IsWithinContentFolder(System.String,System.String)">
+            <summary>
+            Returns whether the given filename is contained within the content folder
+            </summary>
+            <param name="contentRootPath">Content root path</param>
+            <param name="fileName">Filename requested</param>
+            <returns>True if contained within the content root, false otherwise</returns>
+        </member>
+        <member name="T:Nancy.Embedded.EmbeddedViewLocationProvider">
+            <summary>
+            Contains the functionality for locating a view that has been embedded into an assembly resource.
+            </summary>
+        </member>
+        <member name="F:Nancy.Embedded.EmbeddedViewLocationProvider.RootNamespaces">
+            <summary>
+            User-configured root namespaces for assemblies.
+            </summary>
+        </member>
+        <member name="F:Nancy.Embedded.EmbeddedViewLocationProvider.Ignore">
+            <summary>
+            A list of assemblies to ignore when scanning for embedded views.
+            </summary>
+        </member>
+        <member name="M:Nancy.Embedded.EmbeddedViewLocationProvider.#ctor(Nancy.ViewEngines.IResourceReader,Nancy.IResourceAssemblyProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nancy.Embedded.EmbeddedViewLocationProvider"/> class.
+            </summary>
+            <param name="resourceReader">An <see cref="T:Nancy.ViewEngines.IResourceReader"/> instance that should be used when extracting embedded views.</param>
+            <param name="resourceAssemblyProvider">An <see cref="T:Nancy.IResourceAssemblyProvider"/> instance that should be used to determine which assemblies to scan for embedded views.</param>
+        </member>
+        <member name="M:Nancy.Embedded.EmbeddedViewLocationProvider.GetLocatedViews(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Returns an <see cref="T:Nancy.ViewEngines.ViewLocationResult"/> instance for all the views that could be located by the provider.
+            </summary>
+            <param name="supportedViewExtensions">An <see cref="T:System.Collections.Generic.IEnumerable`1"/> instance, containing the view engine file extensions that is supported by the running instance of Nancy.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> instance, containing <see cref="T:Nancy.ViewEngines.ViewLocationResult"/> instances for the located views.</returns>
+            <remarks>If no views could be located, this method should return an empty enumerable, never <see langword="null"/>.</remarks>
+        </member>
+        <member name="M:Nancy.Embedded.EmbeddedViewLocationProvider.GetLocatedViews(System.Collections.Generic.IEnumerable{System.String},System.String,System.String)">
+            <summary>
+            Returns an <see cref="T:Nancy.ViewEngines.ViewLocationResult"/> instance for all the views matching the viewName that could be located by the provider.
+            </summary>
+            <param name="supportedViewExtensions">An <see cref="T:System.Collections.Generic.IEnumerable`1"/> instance, containing the view engine file extensions that is supported by the running instance of Nancy.</param>
+            <param name="location">The location of the view to try and find</param>
+            <param name="viewName">The name of the view to try and find</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> instance, containing <see cref="T:Nancy.ViewEngines.ViewLocationResult"/> instances for the located views.</returns>
+            <remarks>If no views could be located, this method should return an empty enumerable, never <see langword="null"/>.</remarks>
+        </member>
+        <member name="T:Nancy.Embedded.Registrations">
+            <summary>
+            Application registrations supporting views embedded in an assembly
+            </summary>
+        </member>
+        <member name="M:Nancy.Embedded.Registrations.#ctor">
+            <summary>
+            Registers the <see cref="T:Nancy.Embedded.EmbeddedViewLocationProvider"/> with the container to enable
+            embedded views
+            </summary>
+        </member>
+    </members>
+</doc>
