@@ -10,6 +10,7 @@
     using Nancy.Tests;
     using Responses;
     using Xunit;
+    using System.Globalization;
 
     public class EmbeddedStaticContentConventionBuilderFixture
     {
@@ -23,6 +24,69 @@
             result = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt", headers: headers);
 
             result.StatusCode.ShouldEqual(HttpStatusCode.NotModified);
+        }
+
+        [Fact]
+        public void Should_return_not_modified_if_not_changed_and_conditional_request_on_etag_sent()
+        {
+            var initialResult = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
+            var etag = initialResult.Headers["ETag"];
+            var headers = new Dictionary<string, IEnumerable<string>> { { "If-None-Match", new[] { etag } } };
+
+            var result = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt", headers: headers);
+
+            result.StatusCode.ShouldEqual(HttpStatusCode.NotModified);
+        }
+
+        [Fact]
+        public void Should_return_not_modified_if_not_changed_and_conditional_request_on_modified_sent()
+        {
+            var initialResult = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
+            var moddedTime = initialResult.Headers["Last-Modified"];
+            var headers = new Dictionary<string, IEnumerable<string>> { { "If-Modified-Since", new[] { moddedTime } } };
+
+            var result = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt", headers: headers);
+
+            result.StatusCode.ShouldEqual(HttpStatusCode.NotModified);
+        }
+
+        [Fact]
+        public void Should_return_full_response_if_changed_and_conditional_request_on_etag_sent()
+        {
+            var initialResult = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
+            var etag = initialResult.Headers["ETag"];
+            var headers = new Dictionary<string, IEnumerable<string>> { { "If-None-Match", new[] { etag.Substring(1) } } };
+
+            var result = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt", headers: headers);
+
+            result.StatusCode.ShouldEqual(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public void Should_return_full_response_if_changed_and_conditional_request_on_modified_sent()
+        {
+            var initialResult = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
+            var moddedTimeString = initialResult.Headers["Last-Modified"];
+            var moddedTime = DateTime.ParseExact(moddedTimeString, "R", CultureInfo.InvariantCulture, DateTimeStyles.None)
+                                     .AddHours(-1);
+            moddedTimeString = moddedTime.ToString("R", CultureInfo.InvariantCulture);
+            var headers = new Dictionary<string, IEnumerable<string>> { { "If-Modified-Since", new[] { moddedTimeString } } };
+
+            var result = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt", headers: headers);
+
+            result.StatusCode.ShouldEqual(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public void Not_modified_response_should_have_no_body()
+        {
+            var initialResult = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
+            var etag = initialResult.Headers["ETag"];
+            var headers = new Dictionary<string, IEnumerable<string>> { { "If-None-Match", new[] { etag } } };
+
+            var result = GetEmbeddedStaticContent("Foo", "Subfolder/embedded2.txt", headers: headers);
+
+            result.ShouldEqual(string.Empty);
         }
 
         [Fact]
@@ -94,9 +158,9 @@
             return resolver.Invoke(context, null);
         }
 
-        private static string GetEmbeddedStaticContent(string virtualDirectory, string requestedFilename, string root = null)
+        private static string GetEmbeddedStaticContent(string virtualDirectory, string requestedFilename, string root = null, IDictionary<string, IEnumerable<string>> headers = null)
         {
-            var response = GetEmbeddedStaticContentResponse(virtualDirectory, requestedFilename, root);
+            var response = GetEmbeddedStaticContentResponse(virtualDirectory, requestedFilename, root, headers);
 
             if (response != null)
             {

@@ -1,5 +1,6 @@
 ﻿namespace Nancy.Embedded
 {
+    using Nancy.Helpers;
     using System;
     using System.IO;
     using System.Linq;
@@ -26,29 +27,42 @@
         {
             this.lastModifiedDate = lastModifiedDate;
             this.ContentType = MimeTypes.GetMimeType(name);
-
             this.StatusCode = HttpStatusCode.OK;
 
             var content = GetResourceContent(assembly, resourcePath, name);
-
             if (content != null)
             {
-                this.WithHeader("Last-Modified", this.lastModifiedDate.ToString("R"));
-                this.WithHeader("ETag", GenerateETag(content));
-                content.Seek(0, SeekOrigin.Begin);
-            }
+                var etag = GenerateETag(content);
 
-            this.Contents = stream =>
-            {
-                if (content != null)
+                if (CacheHelpers.ReturnNotModified(etag, lastModifiedDate, context))
                 {
-                    content.CopyTo(stream);
+                    this.StatusCode = HttpStatusCode.NotModified;
+                    this.ContentType = null;
+                    this.Contents = Response.NoBody;
                 }
                 else
                 {
-                    stream.Write(ErrorText, 0, ErrorText.Length);
+                    this.WithHeader("Last-Modified", this.lastModifiedDate.ToString("R"));
+                    this.WithHeader("ETag", etag);
+                    content.Seek(0, SeekOrigin.Begin);
+
+                    this.Contents = stream =>
+                    {
+                        if (content != null)
+                        {
+                            content.CopyTo(stream);
+                        }
+                        else
+                        {
+                            stream.Write(ErrorText, 0, ErrorText.Length);
+                        }
+                    };
                 }
-            };
+            }
+            else
+            {
+
+            }
         }
 
         private Stream GetResourceContent(Assembly assembly, string resourcePath, string name)
