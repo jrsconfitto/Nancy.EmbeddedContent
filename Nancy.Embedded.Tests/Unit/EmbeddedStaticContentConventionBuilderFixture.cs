@@ -12,6 +12,19 @@
 
     public class EmbeddedStaticContentConventionBuilderFixture
     {
+
+        [Fact]
+        public void Embedded_response_has_last_modified_header()
+        {
+            // Given
+            // When
+            var response = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
+
+            // Then
+            Assert.NotNull(response);
+            Assert.True(response.Headers.ContainsKey("Last-Modified"));
+        }
+
         [Fact]
         public void Should_retrieve_static_content_with_urlencoded_dot()
         {

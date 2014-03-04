@@ -115,7 +115,11 @@
                 }
 
                 context.Trace.TraceLog.WriteLog(x => x.AppendLine(string.Concat("[EmbeddedStaticContentConventionBuilder] Returning file '", fileName, "'")));
-                return () => new EmbeddedFileResponse(assembly, resourceName, fileName);
+
+                // Set a Last-Modified header time to now to return with the resource
+                DateTime lastModifiedTime = DateTime.UtcNow;
+
+                return () => new EmbeddedFileResponse(assembly, resourceName, fileName).WithHeader("Last-Modified", lastModifiedTime.ToString("R"));
             };
         }
 
