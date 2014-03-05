@@ -27,7 +27,7 @@
         }
 
         [Fact]
-        public void Should_return_not_modified_if_not_changed_and_conditional_request_on_etag_sent()
+        public void Return_not_modified_when_resource_not_changed_and_conditional_request_on_etag_sent()
         {
             var initialResult = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
             var etag = initialResult.Headers["ETag"];
@@ -39,7 +39,7 @@
         }
 
         [Fact]
-        public void Should_return_not_modified_if_not_changed_and_conditional_request_on_modified_sent()
+        public void Return_not_modified_when_not_changed_and_conditional_request_on_modified_sent()
         {
             var initialResult = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
             var moddedTime = initialResult.Headers["Last-Modified"];
@@ -51,7 +51,7 @@
         }
 
         [Fact]
-        public void Should_return_full_response_if_changed_and_conditional_request_on_etag_sent()
+        public void Return_full_response_when_changed_and_conditional_request_on_etag_sent()
         {
             var initialResult = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
             var etag = initialResult.Headers["ETag"];
@@ -63,7 +63,7 @@
         }
 
         [Fact]
-        public void Should_return_full_response_if_changed_and_conditional_request_on_modified_sent()
+        public void Return_full_response_when_changed_and_conditional_request_on_modified_sent()
         {
             var initialResult = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
             var moddedTimeString = initialResult.Headers["Last-Modified"];
@@ -78,7 +78,7 @@
         }
 
         [Fact]
-        public void Not_modified_response_should_have_no_body()
+        public void Not_modified_response_has_no_body()
         {
             var initialResult = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
             var etag = initialResult.Headers["ETag"];
@@ -102,7 +102,7 @@
         }
 
         [Fact]
-        public void Should_retrieve_static_content_with_urlencoded_dot()
+        public void Retrieves_static_content_with_urlencoded_dot()
         {
             // Given
             // When
@@ -113,7 +113,7 @@
         }
 
         [Fact]
-        public void Should_retrieve_static_content_in_subfolder()
+        public void Retrieves_static_content_in_subfolder()
         {
             // Given
             // When
@@ -124,7 +124,7 @@
         }
 
         [Fact]
-        public void Should_retrieve_static_content_with_hyphens_in_subfolder()
+        public void Retrieves_static_content_with_hyphens_in_subfolder()
         {
             // Given
             // When
@@ -135,7 +135,7 @@
         }
 
         [Fact]
-        public void Should_retrieve_static_content_with_relative_path()
+        public void Retrieves_static_content_with_relative_path()
         {
             // Given
             // When
