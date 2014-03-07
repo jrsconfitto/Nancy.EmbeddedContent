@@ -8,6 +8,9 @@
     using System.Security.Cryptography;
     using System.Text;
 
+    /// <summary>
+    /// The class responsible for returning responses from embedded content.
+    /// </summary>
     public class EmbeddedResponse : Response
     {
         private static readonly byte[] ErrorText;
@@ -19,10 +22,25 @@
             ErrorText = Encoding.UTF8.GetBytes("NOT FOUND");
         }
 
+        /// <summary>
+        /// Creates an EmbeddedResponse
+        /// </summary>
+        /// <param name="assembly">The assembly containing the embedded file with which to respond</param>
+        /// <param name="resourcePath">The path to the embedded resource</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="context">The Nancy context</param>
         public EmbeddedResponse(Assembly assembly, string resourcePath, string name, NancyContext context = null)
             : this(assembly, resourcePath, name, DateTime.UtcNow, context)
         { }
 
+        /// <summary>
+        /// Creates an EmbeddedResponse
+        /// </summary>
+        /// <param name="assembly">The assembly containing the embedded file with which to respond</param>
+        /// <param name="resourcePath">The path to the embedded resource</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="lastModifiedDate">The date that will be compared against modified headers to determine if a NotModified response should be sent</param>
+        /// <param name="context">The Nancy context</param>
         public EmbeddedResponse(Assembly assembly, string resourcePath, string name, DateTime lastModifiedDate, NancyContext context = null)
         {
             this.lastModifiedDate = lastModifiedDate;
