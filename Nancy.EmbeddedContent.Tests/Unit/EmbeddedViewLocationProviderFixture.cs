@@ -6,7 +6,7 @@ namespace Nancy.Tests.Unit.ViewEngines
     using System.Linq;
     using System.Reflection;
     using FakeItEasy;
-    using Nancy.Embedded;
+    using Nancy.EmbeddedContent;
     using Nancy.ViewEngines;
     using Xunit;
 

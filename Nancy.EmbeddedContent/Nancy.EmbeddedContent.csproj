@@ -7,8 +7,8 @@
     <ProjectGuid>{D8EBA39B-63AE-4A66-BD0E-F7F95E572135}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nancy.Embedded</RootNamespace>
-    <AssemblyName>Nancy.Embedded</AssemblyName>
+    <RootNamespace>Nancy.EmbeddedContent</RootNamespace>
+    <AssemblyName>Nancy.EmbeddedContent</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>bin\Debug\Nancy.Embedded.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Nancy.EmbeddedContent.xml</DocumentationFile>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>

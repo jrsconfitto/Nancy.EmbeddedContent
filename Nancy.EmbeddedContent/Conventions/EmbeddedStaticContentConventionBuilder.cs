@@ -1,4 +1,4 @@
-﻿namespace Nancy.Embedded.Conventions
+﻿namespace Nancy.EmbeddedContent.Conventions
 {
     using System;
     using System.Collections.Concurrent;

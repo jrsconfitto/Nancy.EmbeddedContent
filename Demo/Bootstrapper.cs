@@ -2,7 +2,7 @@
 {
     using Nancy;
     using Nancy.Conventions;
-    using Nancy.Embedded.Conventions;
+    using Nancy.EmbeddedContent.Conventions;
 
     public class Bootstrapper : DefaultNancyBootstrapper
     {

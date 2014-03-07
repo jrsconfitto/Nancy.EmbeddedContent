@@ -1,4 +1,4 @@
-﻿namespace Nancy.Embedded.Tests.Unit
+﻿namespace Nancy.EmbeddedContent.Tests.Unit
 {
     using System;
     using System.Collections.Generic;

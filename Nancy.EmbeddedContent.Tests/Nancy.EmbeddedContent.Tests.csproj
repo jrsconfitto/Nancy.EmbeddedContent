@@ -58,9 +58,9 @@
     <Compile Include="Unit\EmbeddedViewLocationProviderFixture.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nancy.Embedded\Nancy.Embedded.csproj">
+    <ProjectReference Include="..\Nancy.EmbeddedContent\Nancy.EmbeddedContent.csproj">
       <Project>{d8eba39b-63ae-4a66-bd0e-f7f95e572135}</Project>
-      <Name>Nancy.Embedded</Name>
+      <Name>Nancy.EmbeddedContent</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-# Nancy.Embedded
+# Nancy.EmbeddedContent
 
 A NuGet package to aid in serving embedded content over a [Nancy](http://nancyfx.org) application. Sometimes you just want to ship a `dll` instead of a bunch of files.
 
