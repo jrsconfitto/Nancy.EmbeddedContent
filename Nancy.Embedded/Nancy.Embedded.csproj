@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="Conventions\EmbeddedStaticContentConventionsExtensions.cs" />
     <Compile Include="Conventions\EmbeddedStaticContentConventionBuilder.cs" />
+    <Compile Include="EmbeddedResponse.cs" />
     <Compile Include="EmbeddedViewLocationProvider.cs" />
     <Compile Include="Registrations.cs" />
   </ItemGroup>
