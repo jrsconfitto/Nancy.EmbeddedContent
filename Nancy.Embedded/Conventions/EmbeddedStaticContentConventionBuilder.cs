@@ -122,7 +122,7 @@
                 // Set a Last-Modified header time to now to return with the resource
                 DateTime lastModifiedDate = DateTime.UtcNow;
 
-                return (ctx) => new Nancy.Embedded.EmbeddedFileResponse(assembly, resourceName, fileName, lastModifiedDate, ctx);
+                return (ctx) => new Nancy.Embedded.EmbeddedResponse(assembly, resourceName, fileName, lastModifiedDate, ctx);
             };
         }
 

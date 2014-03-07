@@ -8,22 +8,22 @@
     using System.Security.Cryptography;
     using System.Text;
 
-    public class EmbeddedFileResponse : Response
+    public class EmbeddedResponse : Response
     {
         private static readonly byte[] ErrorText;
 
         private DateTime lastModifiedDate;
 
-        static EmbeddedFileResponse()
+        static EmbeddedResponse()
         {
             ErrorText = Encoding.UTF8.GetBytes("NOT FOUND");
         }
 
-        public EmbeddedFileResponse(Assembly assembly, string resourcePath, string name, NancyContext context = null)
+        public EmbeddedResponse(Assembly assembly, string resourcePath, string name, NancyContext context = null)
             : this(assembly, resourcePath, name, DateTime.UtcNow, context)
         { }
 
-        public EmbeddedFileResponse(Assembly assembly, string resourcePath, string name, DateTime lastModifiedDate, NancyContext context = null)
+        public EmbeddedResponse(Assembly assembly, string resourcePath, string name, DateTime lastModifiedDate, NancyContext context = null)
         {
             this.lastModifiedDate = lastModifiedDate;
             this.ContentType = MimeTypes.GetMimeType(name);
