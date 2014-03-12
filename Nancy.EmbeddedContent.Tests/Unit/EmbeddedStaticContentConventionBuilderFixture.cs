@@ -78,6 +78,23 @@
         }
 
         [Fact]
+        public void Return_full_response_when_etag_matches_but_date_does_not()
+        {
+            var initialResult = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
+            var moddedTimeString = initialResult.Headers["Last-Modified"];
+            var etag = initialResult.Headers["ETag"];
+
+            var moddedTime = DateTime.ParseExact(moddedTimeString, "R", CultureInfo.InvariantCulture, DateTimeStyles.None)
+                                     .AddHours(-1);
+            moddedTimeString = moddedTime.ToString("R", CultureInfo.InvariantCulture);
+            var headers = new Dictionary<string, IEnumerable<string>> { { "If-Modified-Since", new[] { moddedTimeString } }, { "If-None-Match", new[] { etag.Substring(1) } } };
+
+            var result = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt", headers: headers);
+
+            result.StatusCode.ShouldEqual(HttpStatusCode.OK);
+        }
+
+        [Fact]
         public void Not_modified_response_has_no_body()
         {
             var initialResult = GetEmbeddedStaticContentResponse("Foo", "Subfolder/embedded2.txt");
