@@ -3,6 +3,7 @@
     using Nancy.Helpers;
     using System;
     using System.IO;
+    using System.IO.Compression;
     using System.Linq;
     using System.Reflection;
     using System.Security.Cryptography;
@@ -64,11 +65,26 @@
                     this.WithHeader("ETag", etag);
                     content.Seek(0, SeekOrigin.Begin);
 
+                    if (context.Request.Headers.AcceptEncoding.Contains("gzip"))
+                    {
+                        this.WithHeader("Content-Encoding", "gzip");
+                    }
+
                     this.Contents = stream =>
                     {
                         if (content != null)
                         {
-                            content.CopyTo(stream);
+                            if (context.Request.Headers.AcceptEncoding.Contains("gzip"))
+                            {
+                                using (GZipStream zs = new GZipStream(stream, CompressionMode.Compress, true))
+                                {
+                                    content.CopyTo(zs);
+                                }
+                            }
+                            else
+                            {
+                                content.CopyTo(stream);
+                            }
                         }
                         else
                         {
