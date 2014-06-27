@@ -18,6 +18,5 @@
             this.Register<IResourceReader>(typeof(DefaultResourceReader));
             this.Register<IViewLocationProvider>(typeof(EmbeddedViewLocationProvider));
         }
-
     }
 }
