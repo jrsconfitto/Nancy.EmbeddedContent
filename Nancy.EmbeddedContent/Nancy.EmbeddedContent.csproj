@@ -46,13 +46,11 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="Conventions\EmbeddedStaticContentConventionsExtensions.cs" />
     <Compile Include="Conventions\EmbeddedStaticContentConventionBuilder.cs" />
     <Compile Include="EmbeddedResponse.cs" />
     <Compile Include="EmbeddedViewLocationProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registrations.cs" />
   </ItemGroup>
   <ItemGroup>
