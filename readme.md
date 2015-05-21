@@ -1,8 +1,8 @@
 # Nancy.EmbeddedContent
 
-A NuGet package to aid in serving embedded content over a
-[Nancy](http://nancyfx.org) application (on .NET 4). Sometimes you just want to
-ship a `dll` instead of a bunch of static files.
+A code utility to aid in serving embedded content over a
+[Nancy](http://nancyfx.org) application (on .NET 4). An example of what to do with
+this is shipping a `dll` containing static files instead of a bunch of static files.
  
 **Disclaimer**: i've written this package because i'm stuck on .NET 4 for a
 while longer. Instead of using this project, i'd recommend using
@@ -14,11 +14,11 @@ if your project can use .NET 4.5.
 This is meant to be downloaded and included in your own source code. To utilize,
 clone this code, and import the project into your solution.
 
-Views will be discovered automatically as long as the build action is set to
-**Embedded Resource**.  
+Views will be discovered automatically as long as the build action for each
+file you want served is set to **Embedded Resource**.
 
 To serve embedded files as static content, you will have to add a static content
-convention:
+convention to your bootstrapper:
 
 ```c#
 public class Bootstrapper : DefaultNancyBootstrapper
