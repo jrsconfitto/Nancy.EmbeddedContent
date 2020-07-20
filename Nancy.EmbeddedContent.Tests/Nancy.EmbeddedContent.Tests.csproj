@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShouldExtensions.cs" />
+    <Compile Include="Unit\EmbeddedResponseTests.cs" />
     <Compile Include="Unit\EmbeddedStaticContentConventionBuilderFixture.cs" />
     <Compile Include="Unit\EmbeddedViewLocationProviderFixture.cs" />
   </ItemGroup>
